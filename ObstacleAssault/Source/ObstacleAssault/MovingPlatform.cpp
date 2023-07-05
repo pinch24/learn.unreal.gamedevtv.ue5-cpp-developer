@@ -16,7 +16,9 @@ void AMovingPlatform::BeginPlay()
 {
 	Super::BeginPlay();
 
-	MyFloat = MyVector.X;
+	 MyVector.Z = MyFloat;
+
+	SetActorLocation(MyVector);
 }
 
 // Called every frame
