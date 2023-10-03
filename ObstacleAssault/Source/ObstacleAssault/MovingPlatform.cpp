@@ -16,6 +16,8 @@ void AMovingPlatform::BeginPlay()
 	Super::BeginPlay();
 
 	StartLocation = GetActorLocation();
+
+	UE_LOG(LogTemp, Warning, TEXT("Configured Moved Distance: %f"), MoveDistance);
 }
 
 // Called every frame
@@ -29,6 +31,9 @@ void AMovingPlatform::Tick(float DeltaTime)
 
 	const float DistanceMoved = FVector::Dist(StartLocation, CurrentLocation);
 	if (DistanceMoved > MoveDistance) {
+		const float OverShoot = DistanceMoved - MoveDistance;
+		UE_LOG(LogTemp, Warning, TEXT("Platform overshot by %f"), OverShoot);
+		
 		const FVector MoveDirection = PlatformVelocity.GetSafeNormal();
 		StartLocation += MoveDirection * MoveDistance;
 		SetActorLocation(StartLocation);
